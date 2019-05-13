@@ -19,13 +19,12 @@ After each episode, the rewards that each agent received (without discounting) a
 # Getting Started
 Download the environment from one of the links below. You need only select the environment that matches your operating system:
 
-Linux: click here
-Mac OSX: click here
-Windows (32-bit): click here
-Windows (64-bit): click here
-(For Windows users) Check out this link if you need help with determining if your computer is running a 32-bit version or 64-bit version of the Windows operating system.
+Linux: [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Linux.zip
+Mac OSX: [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis.app.zip
+Windows (32-bit): [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86.zip
+Windows (64-bit): [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86_64.zip
 
-Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, or your working directory, and unzip (or decompress) the file.
+Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, or your project working directory, and unzip (or decompress) the file.
 
 # Instructions
 Follow the instructions in Tennis.ipynb to get started with training your own agent!
