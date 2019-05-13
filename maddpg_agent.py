@@ -33,7 +33,7 @@ class Agent():
     def __init__(self, state_size, action_size, num_agents, random_seed):
         """Initialize an Agent object.
 
-        Params
+        Params 
         ======
             state_size (int): dimension of each state
             action_size (int): dimension of each action
