@@ -19,10 +19,10 @@ After each episode, the rewards that each agent received (without discounting) a
 # Getting Started
 Download the environment from one of the links below. You need only select the environment that matches your operating system:
 
-Linux: [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Linux.zip
-Mac OSX: [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis.app.zip
-Windows (32-bit): [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86.zip
-Windows (64-bit): [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86_64.zip
+- Linux: [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Linux.zip
+- Mac OSX: [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis.app.zip
+- Windows (32-bit): [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86.zip
+- Windows (64-bit): [click here] https://s3-us-west-1.amazonaws.com/udacity-drlnd/P3/Tennis/Tennis_Windows_x86_64.zip
 
 Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, or your project working directory, and unzip (or decompress) the file.
 
