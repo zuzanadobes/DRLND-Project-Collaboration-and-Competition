@@ -1,6 +1,6 @@
 # DRLND-Project-Collaboration-and-Competition
 
-Draft submission to Udacity of project code towards the completion of the nano degree "Deep Reinforcement Learning" (DRL). Project #3 called "Collaboration and Competition" trains an agent to play tennis.
+Draft submission to Udacity of project code towards the completion of the nano degree "Deep Reinforcement Learning" (DRL). Project #3 called "Collaboration and Competition" trains an agent to play tennis,  and to keep the ball "in play" as long as possible,
 
 # Introduction
 
@@ -8,15 +8,13 @@ This project works with the Tennis environment.
 
 # Trained Agent
 
-In this envronment, two agents control rackets to bounce a ball over a net. If an agent hits the ball over the net, it receives a reward of +0.1. If an agent lets a ball hit the ground or hits the ball out of bounds, it receives a reward of -0.01. Thus, the goal of each agent is to keep the ball in play.
+In the loaded in environment, two agents control rackets to bounce a ball over a net. If an agent hits the ball over the net, it receives a reward of +0.1. If (one of the two) agent lets a ball hit the ground or hits the ball out of bounds, it receives a reward of -0.01. Thus, the goal of each agent is to keep the ball in play.
 
 The observation space consists of 8 variables corresponding to the position and velocity of the ball and racket. Each agent receives its own, local observation. Two continuous actions are available, corresponding to movement toward (or away from) the net, and jumping.
 
 The task is episodic, and in order to solve the environment, your agents must get an average score of +0.5 (over 100 consecutive episodes, after taking the maximum over both agents). Specifically,
 
-After each episode, we add up the rewards that each agent received (without discounting), to get a score for each agent. This yields 2 (potentially different) scores. We then take the maximum of these 2 scores.
-This yields a single score for each episode.
-The environment is considered solved, when the average (over 100 episodes) of those scores is at least +0.5.
+After each episode, the rewards that each agent received (without discounting) are summed up, which becomes's the agent's score. This results in 2 scores, the max of which is recorded as the episode score.  The environment is considered solved, when the average (over 100 episodes) of those scores is at least **+0.5**.
 
 # Getting Started
 Download the environment from one of the links below. You need only select the environment that matches your operating system:
@@ -27,7 +25,7 @@ Windows (32-bit): click here
 Windows (64-bit): click here
 (For Windows users) Check out this link if you need help with determining if your computer is running a 32-bit version or 64-bit version of the Windows operating system.
 
-Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, and unzip (or decompress) the file.
+Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, or your working directory, and unzip (or decompress) the file.
 
 # Instructions
 Follow the instructions in Tennis.ipynb to get started with training your own agent!
