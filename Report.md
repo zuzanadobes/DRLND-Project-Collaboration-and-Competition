@@ -1,16 +1,13 @@
 ### Project criteria
 
-The goal of this coding project is to train two seperate agents to play a game of tennis with each other, competing and cooperating together.
-The implementation uses a UnityML based agent.  The agents must get a taget score of +.5, as the average, over 100 consecutive episodes, and over both 
-agents.  After each episode, we add up the rewards that each agent received, to get their average scores, and then take the average of 
-these.   This finally is used to compute the episode average score.  The environment is considered solved, when the average  score goes over 
-the target score,  after 100 episodes.
+The goal of this coding project is to train two seperate agents to play a game of tennis with each other, competing and cooperating together. The implementation uses a UnityML based agent.  The agents must get a taget score of +.5, as the average, over 1000 consecutive episodes, and over both agents.  After each episode, we add up the rewards that each agent received, to get their average scores, and then take the average of these.   This is used to compute the episode average score.  The environment is considered solved, when the average  score goes over the target score.
 
-The goal here is to create two agents capable of playing table tennis with each other. When the agent hits the ball over the net, it receives a reward of +0.1. If the ball hits the ground or goes out of bounds, the agent receives a reward of -0.01. Thus the goal of each agent is to keep the ball in play.
+When the agent hits the ball over the net, it receives a reward of +0.1. If the ball hits the ground or goes out of bounds, the agent receives a reward of -0.01. Thus the goal of each agent is to keep the ball in play.
 
 Given this information, each agent has to learn how to best select actions. The action space has 2 dimensions; each entry corresponds to movement toward or away from the net, and jumping.
 
-The task is episodic, and in order to solve the environment, the agent must get an average score of +0.5 over 100 consecutive episodes (after taking the maximum over both agents).
+The task is episodic, and in order to solve the environment, the agent must get an average score of +0.5 over 1000 consecutive episodes (after taking the maximum over both agents).
+
 ### Code Framework 
 
 The code is written in PyTorch and Python 3.
@@ -37,12 +34,15 @@ The saved model weights of the successful critic for critic 02 are located in th
 
 ###  Hyperparamters 
 
-In reality one can manipulate some of these paramters, but these were released for the project approval.
+The following hyperparamter values were released for the Udacity project approval.
 
-BUFFER_SIZE = int(1e6)  # replay buffer size
+The agent starts learning every 5 steps. 
+Ornstein-Uhlenbeck noise is used.
+#MAXTIMESTEP = 2000     # set in the main program tennis.ipynb - ddpg, the max number of steps in each episode
+BUFFER_SIZE = int(1e6)  # replay buffer size - also tried 1e5
 BATCH_SIZE = 128        # minibatch size
-LR_ACTOR = 1e-3         # learning rate of the actor
-LR_CRITIC = 1e-3        # learning rate of the critic
+LR_ACTOR = 1e-3         # learning rate of the actor - also tried 1e-4
+LR_CRITIC = 1e-3        # learning rate of the critic - also tried 3e-4
 WEIGHT_DECAY = 0        # L2 weight decay
 LEARN_EVERY = 1         # learning timestep interval
 LEARN_NUM = 5           # number of learning passes
@@ -81,11 +81,14 @@ Vector Action space: Each action is a vector with four numbers, corresponding to
 The report clearly describes the learning algorithm, along with the chosen hyperparameters. It also describes the model architectures for any neural networks.
 
 This project uses the DDPG algorithm with a replay buffer. Clearly the DQN algorithm is not sufficient to solve this problem.
+
+The replay buffer corresponds to a memory were the agents can store previous experiences. In our approach the agent randomly selects a fixed number of experiences (i.e., a minibatch of experiences) to update the neural network at a (specific) time step. This is done to  to deal with the problem of temporal correlation, since it allows a mixing of old and new experiences.  But the approach taken here is that all samples are created equal and no experiences are more valuable compared with others. 
+
 The agent is initialized using the hyperparameters are initialized in "ddpg_agent.py".
-Parameters which were most influential to the agent's performance were:  BATCHSIZE but in general it is very time consuming to measure the effects. TAO setting for the neural net also effected the outcome.
+The parameters which were most influential to the agent's performance included BATCHSIZE and the neural network parameters. 
+In general it is very time consuming to measure the effects. 
 
-
-- Set-up: 20 Agents, using one common Brain. Brains manage vector observation space and action space.
+- Set-up: 2 Agents, using one common Brain. Brains manage vector observation space and action space.
 - Agent updates the replay buffer with each experience, which is shared by all agents
 - Update the local actor and critic networks using replay buffer "samples"
 - the update strategy:  
@@ -104,19 +107,18 @@ tanh on the output layer.
 
 You can observe the slight difference between the Actor and the Critic networks.
 
-The Actor model is a neural network with3 fully connectedl layers , 2 hidden layers of 512 and 256 units, 
-Tanh is used in the final layer that maps states to actions.  I also tried 256 units and 128 units respectively. 
-
+The Actor model is a neural network with3 fully connectedl layers , 2 hidden layers of 512 and 256 units, I also tried 256 units and 128 units respectively. 
 - self.fc1 = nn.Linear(state_size*2, fc1_units)
 - self.fc2 = nn.Linear(fc1_units, fc2_units)
 - self.fc3 = nn.Linear(fc2_units, action_size)
+Tanh is used in the final layer that maps states to actions.  
 
-Critic take into account actions of agent1 and agent2. The Critic network is similar to Actor network except the final layer is a fully connected layer that maps states and actions to Q-values. A dropout of 0.2 is added before the output layer to help the network to learn more efficiently and avoid overfitting.
+Critic take into account actions of agent1 and agent2. The Critic network is similar to Actor network except the final layer is a fully connected layer that maps states and actions to Q-values. 
 
 - self.fcs1 = nn.Linear(state_size*2, fcs1_units)
-- self.fc2 = nn.Linear(fcs1_units+(action_size*2), fc2_units)  <== 
+- self.fc2 = nn.Linear(fcs1_units+**(action_size*2)**, fc2_units)  <== 
 - self.fc3 = nn.Linear(fc2_units, 1)
-
+A dropout of 0.2 is added before the output layer to help the network to learn more efficiently and avoid overfitting.
 
 Noise was added using an Ornstein-Uhlenbeck process theta and sigma were set as the recommended values from classroom reading. (See Also)
 
@@ -146,12 +148,15 @@ Concrete future ideas for improving the agent's performance could include:
 
 ## Future Improvements
 There are many possible directions to try. Wish there was more time. So before anything I would just try and play with the network layers, and change different aspects of the network, units per layer, or number of layers. Not enough time left to experiment. Other algorithms I would try, which were also covered by the Udacity cource:
-- I would try out the Proximal Policy Optimization algorithm.
+- I would try out the [ Priority Experienced Replay algorithm ] 
 - I would try the D4G algorithm (refence bellow).  
+- Currently the two agents we have in our project use the same network.  We could try an alternative version where we train the 2 agents with seperate separate Actor / Critic networks. 
 
 ## See also
 You can view the publication from DeepMind here
 [ Unity Agents ] https://github.com/Unity-Technologies/ml-agents
+
+[ Priority Experienced Replay algorithm ]  https://ieeexplore.ieee.org/document/8122622
 
 [ Solving Continuous Control environment using Deep Deterministic Policy Gradient (DDPG) agent ] https://medium.com/@kinwo/solving-continuous-control-environment-using-deep-deterministic-policy-gradient-ddpg-agent-5e94f82f366d
 
