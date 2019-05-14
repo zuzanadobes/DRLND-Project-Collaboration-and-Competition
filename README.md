@@ -26,18 +26,23 @@ Download the environment from one of the links below. You need only select the e
 
 Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, or your project working directory, and unzip (or decompress) the file.
 
+# Dependencies
+
+Dependencies
+Python 3.6
+Pytorch
+Unity ML-Agents
+
 # Files
 
-README.md - This file
-Report.md - A report containg the details of the implementation
-Tennis.ipynb - A Jupyter Notebook containing the training code for the two Agents
-model.py - The pytorch neural network code used for training the Actor and the Critic 
-dd_agent.py - Definitions for the Agent and its actions
-results_actor01_ckpt.pth - The saved status of the first agent's actor network
-results_actor02_ckpt.pth - The saved status of the second agent's actor network
-results_critic01_ckpt.pth - The saved status of the first agent's critic network
-results_critic02_ckpt.pth - The saved status of the second agent's critic network
-A plot of the score over the training episodes is included in the Tennis .ipynb notebook
+- README.md - This file
+- Report.md - A report containg the details of the implementation
+- Tennis.ipynb - A Jupyter Notebook containing the training code for the two Agents
+- model.py - The pytorch neural network code used for training the Actor and the Critic 
+- maddpg_agent.py - Definitions for the Agent and its actions
+- results_actor01_ckpt.pth - The saved status of the first agent's actor network
+- results_critic01_ckpt.pth - The saved status of the first agent's critic network
+- A plot of the score over the training episodes is included in the Tennis .ipynb notebook
 
 # Instructions
 Follow the instructions in Tennis.ipynb to get started with training your own agent!
