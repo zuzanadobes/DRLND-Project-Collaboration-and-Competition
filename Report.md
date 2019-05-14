@@ -12,8 +12,8 @@ The task is episodic, and in order to solve the environment, the agent must get 
 
 - The code is written in PyTorch and Python 3.
 - This repository contains code built on top of the ml-agents from Unity [ Unity Agents ].
-- The specific environment for this project came in the form of a windows executable file,  is called [Reacher]
-(https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#reacher)
+- The specific environment for this project came in the form of a windows executable file,  is called [Tennis]
+(https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md#tennis)
 
 # State Space / Observation Space
 - The state space has 8 dimensions (corresponding to the position and velocity of the ball and racket). 
