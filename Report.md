@@ -47,13 +47,19 @@ EPS_FINAL = 0           # final value for epsilon after decay
 OU_SIGMA = 0.2          # Ornstein-Uhlenbeck noise parameter, volatility
 OU_THETA = 0.15         # Ornstein-Uhlenbeck noise parameter, speed of mean reversion
 
-### Learning Algorithm: MADDPG
+### Learning Algorithm: MADDPG (Multi-Agent Deep Deterministic Policy Gradient)
 
-The report clearly describes the learning algorithm. It also describes the model architectures for any neural networks.
+The report clearly describes the learning algorithm. 
 
-This project uses the DDPG algorithm with a replay buffer. Clearly the DQN algorithm is not sufficient to solve this problem.
+This project uses the DDPG algorithm with a replay buffer. This approach is ideas for learning policies in in high-dimensional,continuous action spaces. It is a model-free, actor-critic algorithm using deep neural network function approximators that can learn policies.  
 
 The replay buffer corresponds to a memory were the agents can store previous experiences. In our approach the agent randomly selects a fixed number of experiences (i.e., a minibatch of experiences) to update the neural network at a (specific) time step. This is done to  to deal with the problem of temporal correlation, since it allows a mixing of old and new experiences.  But the approach taken here is that all samples are created equal and no experiences are more valuable compared with others. 
+
+The original DDPG algorithm from which I extended to create the MADDPG version, is outlined in this paper, Continuous Control with Deep Reinforcement Learning, by researchers at Google Deepmind. In this paper, the authors present "a model-free, off-policy actor-critic algorithm using deep function approximators that can learn policies in high-dimensional, continuous action spaces." They highlight that DDPG can be viewed as an extension of Deep Q-learning to continuous tasks.
+
+For the DDPG foundation, I used this vanilla, single-agent DDPG as a template. Then, to make this algorithm suitable for the multiple competitive agents in the Tennis environment, I implemented components discussed in this paper, Multi-Agent Actor-Critic for Mixed Cooperative-Competitive Environments, by Lowe and Wu, along with other researchers from OpenAI, UC Berkeley, and McGill University. Most notable, I implemented their variation of the actor-critic method (see Figure 1), which I discuss in the following section.
+
+Lastly, I further experimented with components of the DDPG algorithm based on other concepts covered in Udacity's classroom and lessons. My implementation of this algorithm (including various customizations) are discussed below.
 
 The agent is initialized using the hyperparameters are initialized in "ddpg_agent.py".
 The parameters which were most influential to the agent's performance included BATCHSIZE and the neural network parameters. 
@@ -83,7 +89,18 @@ The Actor model is a neural network with3 fully connectedl layers , 2 hidden lay
 
 Critic take into account actions of agent1 and agent2. The Critic network is similar to Actor network except the final layer is a fully connected layer that maps states and actions to Q-values. The inner layer accounts for actions possibilities of both agents. 
 Noise was added using an Ornstein-Uhlenbeck process theta and sigma were set as the recommended values from classroom reading. 
- 
+
+We use both a local and target networks where one set of parameters is used to select the best action, and another set of parameters (w, vs, w') is used to evaluate that action. In this project, local and target networks are implemented separately for both the actor and the critic.
+
+### Actor-Critic
+
+- The Agent() class can be found in maddpg_agent.py of the source code. 
+- The actor-critic models can be found via their respective Actor() and Critic() classes here in models.py.
+- Actor-critic methods leverage the strengths both policy-based and value-based methods.
+- Each agent  takes actions based on its own observations of the environment.
+
+Using a policy-based approach, the agent (actor) learns how to act by directly estimating the optimal policy and maximizing reward through gradient ascent. Meanwhile, employing a value-based approach, the agent (critic) learns how to estimate the value (i.e., the future cumulative reward) of different state-action pairs. Actor-critic methods combine these two approaches in order to accelerate the learning process. Actor-critic agents can be more stable than value-based agents, while requiring fewer training samples than policy-based agents.
+
 ### Reward plot
 
 A plot of rewards per episode is included in the tennis.ipynb notebook to illustrate:
