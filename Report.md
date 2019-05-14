@@ -98,8 +98,21 @@ Parameters which were most influential to the agent's performance were:  BATCHSI
 ### The neural network 
 
 The network comprises of 2 networks and the settings are described in the model.py file. 
-The network architecture used by the Actor and Critic consist of three fully connected layers, with 400 units and 300 units. 
-The Actor uses the ReLU activation functions & Critic uses the LeakyReLU activation function and they use tanh on the output layer. 
+The network architecture used by the Actor and Critic consist of three fully connected layers, with 256 units and 128 units. 
+The **Actor** uses the ReLU activation functions & Critic uses the LeakyReLU activation function and they use tanh on the output laye
+
+You can observe the slight difference between the Actor and the Critic networks.
+
+- self.fc1 = nn.Linear(state_size*2, fc1_units)
+- self.fc2 = nn.Linear(fc1_units, fc2_units)
+- self.fc3 = nn.Linear(fc2_units, action_size)
+
+Critic take into account actions of agent1 and agent2
+
+- self.fcs1 = nn.Linear(state_size*2, fcs1_units)
+- self.fc2 = nn.Linear(fcs1_units+(action_size*2), fc2_units)  <== 
+- self.fc3 = nn.Linear(fc2_units, 1)
+
 
 Noise was added using an Ornstein-Uhlenbeck process theta and sigma were set as the recommended values from classroom reading. (See Also)
 
