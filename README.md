@@ -4,7 +4,7 @@ Draft submission to Udacity of project code towards the completion of the nano d
 
 # Introduction
 
-This project works with the Tennis environment.
+This project works with the Tennis environment provided by Udacity.  This project was completed on a local Windows machine but it can also be run in the Udacity Workspace. Instructions on how to download and setup Unity ML environments can be found in [ Unity ML-Agents Github repo ] https://github.com/Unity-Technologies/ml-agents. The project environment is similar to the Tennis environment on the [ Unity ML-Agents GitHub page ] https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Learning-Environment-Examples.md.
 
 # Trained Agent
 
