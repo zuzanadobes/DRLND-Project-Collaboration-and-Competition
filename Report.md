@@ -111,7 +111,7 @@ Tanh is used in the final layer that maps states to actions.  I also tried 256 u
 - self.fc2 = nn.Linear(fc1_units, fc2_units)
 - self.fc3 = nn.Linear(fc2_units, action_size)
 
-Critic take into account actions of agent1 and agent2
+Critic take into account actions of agent1 and agent2. The Critic network is similar to Actor network except the final layer is a fully connected layer that maps states and actions to Q-values. A dropout of 0.2 is added before the output layer to help the network to learn more efficiently and avoid overfitting.
 
 - self.fcs1 = nn.Linear(state_size*2, fcs1_units)
 - self.fc2 = nn.Linear(fcs1_units+(action_size*2), fc2_units)  <== 
@@ -154,6 +154,8 @@ You can view the publication from DeepMind here
 [ Unity Agents ] https://github.com/Unity-Technologies/ml-agents
 
 [ Solving Continuous Control environment using Deep Deterministic Policy Gradient (DDPG) agent ] https://medium.com/@kinwo/solving-continuous-control-environment-using-deep-deterministic-policy-gradient-ddpg-agent-5e94f82f366d
+
+[ Learning to play Tennis from scratch with self-play using DDPG ] https://medium.com/@kinwo/learning-to-play-tennis-from-scratch-with-self-play-using-ddpg-ac7389eb980e
 
 [ Andreas Windisch's git repository ] https://github.com/a-windisch/deep_reinforcement_learning_play_tennis ]
 
