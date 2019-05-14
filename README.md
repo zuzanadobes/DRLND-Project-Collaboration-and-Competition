@@ -28,10 +28,10 @@ Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, 
 
 # Dependencies
 
-Dependencies
-Python 3.6
-Pytorch
-Unity ML-Agents
+- Dependencies
+- Python 3.6
+- Pytorch
+- Unity ML-Agents
 
 # Files
 
