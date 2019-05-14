@@ -99,9 +99,13 @@ Parameters which were most influential to the agent's performance were:  BATCHSI
 
 The network comprises of 2 networks and the settings are described in the model.py file. 
 The network architecture used by the Actor and Critic consist of three fully connected layers, with 256 units and 128 units. 
-The **Actor** uses the ReLU activation functions & Critic uses the LeakyReLU activation function and they use tanh on the output laye
+The **Actor** uses the ReLU activation functions & Critic uses the LeakyReLU activation function.
+tanh on the output layer.
 
 You can observe the slight difference between the Actor and the Critic networks.
+
+The Actor model is a neural network with3 fully connectedl layers , 2 hidden layers of 512 and 256 units, 
+Tanh is used in the final layer that maps states to actions.  I also tried 256 units and 128 units respectively. 
 
 - self.fc1 = nn.Linear(state_size*2, fc1_units)
 - self.fc2 = nn.Linear(fc1_units, fc2_units)
