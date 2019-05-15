@@ -45,6 +45,8 @@ Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, 
 - A plot of the score over the training episodes is included in the Tennis .ipynb notebook
 
 # Instructions
+
+You can use the requirements.txt file to create a local environment with all the modules required to tun this project.
 Follow the instructions in Tennis.ipynb to get started with training your own agent!
 
 To load the agent into your code python do: 
