@@ -44,6 +44,7 @@ Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, 
 - results_critic01_ckpt.pth - The saved status of the first agent's critic network
 - A plot of the score over the training episodes is included in the Tennis .ipynb notebook
 - requirements.txt - is a list of the model dependcies which can be used to build a new environment in conda
+- score-*.PNG* files - Snapshots of the learning environment
 
 # Instructions
 
