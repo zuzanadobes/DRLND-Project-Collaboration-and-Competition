@@ -31,6 +31,7 @@ Place the file in the DRLND GitHub repository, in the p3_collab-compet/ folder, 
 - Dependencies
 - Python 3.6
 - Pytorch
+- TensorFlow ==> security notice from github should be tensorflow>=1.12.1
 - Unity ML-Agents
 
 # Files
