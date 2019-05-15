@@ -1,3 +1,9 @@
+"""
+Builds Neural Network for supporting the MADDPG algorithm (Actor-Critic)
+Makes use of PyTorch Python Module
+Code Part of Project for Udacity Danaodgree in Deep Reinforcement Learning (DRL)
+Code adapted from code examples of Udacity DRL Students and from the Udacity Student HUB, 2019.
+"""
 import numpy as np
 
 import torch

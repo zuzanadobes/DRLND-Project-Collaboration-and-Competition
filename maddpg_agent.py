@@ -1,3 +1,10 @@
+"""
+Example Agent
+DDPG Model for Unity ML-Agents Environments using PyTorch
+Makes use of Unity ML-Agents Environments using PyTorch Python Module
+Project for Udacity Danaodgree in Deep Reinforcement Learning (DRL)
+Code adapted from code examples of Udacity DRL Students and from the Udacity Student HUB, 2019.
+"""
 import numpy as np
 import random
 import copy
@@ -7,8 +14,10 @@ from model import Actor, Critic
 
 import torch
 import torch.nn.functional as F
+# See README file for code references
 import torch.optim as optim
 
+# Hyperparameters - tuning these can take a lifetime :-)
 BUFFER_SIZE = int(1e6)  # replay buffer size
 BATCH_SIZE = 128        # minibatch size
 LR_ACTOR = 1e-3         # learning rate of the actor
@@ -17,7 +26,7 @@ WEIGHT_DECAY = 0        # L2 weight decay
 LEARN_EVERY = 1         # learning timestep interval
 LEARN_NUM = 5           # number of learning passes
 GAMMA = 0.99            # discount factor
-TAU = 8e-3              # for soft update of target parameters
+TAU = 8e-3              # for soft update of target parameters 
 OU_SIGMA = 0.2          # Ornstein-Uhlenbeck noise parameter, volatility
 OU_THETA = 0.15         # Ornstein-Uhlenbeck noise parameter, speed of mean reversion
 EPS_START = 5.0         # initial value for epsilon in noise decay process in Agent.act()
@@ -33,7 +42,7 @@ class Agent():
     def __init__(self, state_size, action_size, num_agents, random_seed):
         """Initialize an Agent object.
 
-        Params 
+        Params
         ======
             state_size (int): dimension of each state
             action_size (int): dimension of each action
@@ -48,12 +57,12 @@ class Agent():
         self.eps_decay = 1/(EPS_EP_END*LEARN_NUM)  # set decay rate based on epsilon end target
         self.timestep = 0
 
-        # Actor Network (w/ Target Network)
+        # Actor Network (w/ Target Network) Hidden units 256 units and 128
         self.actor_local = Actor(state_size, action_size, random_seed).to(device)
         self.actor_target = Actor(state_size, action_size, random_seed).to(device)
         self.actor_optimizer = optim.Adam(self.actor_local.parameters(), lr=LR_ACTOR)
 
-        # Critic Network (w/ Target Network)
+        # Critic Network (w/ Target Network) Hidden units 256 units and 128 
         self.critic_local = Critic(state_size, action_size, random_seed).to(device)
         self.critic_target = Critic(state_size, action_size, random_seed).to(device)
         self.critic_optimizer = optim.Adam(self.critic_local.parameters(), lr=LR_CRITIC, weight_decay=WEIGHT_DECAY)
@@ -64,6 +73,11 @@ class Agent():
         # Replay memory
         self.memory = ReplayBuffer(action_size, BUFFER_SIZE, BATCH_SIZE, random_seed)
 
+# Both agents use the same step method function.
+# Use of global timestep - not parametrized - tried to do this but was not successful.
+# Increase the time counter and save experience to memory.
+# If memory is bigger than the BATCH_SIZE (see above) then take a sample from it.
+# And apply "learn" on this experience - passing the agent number (0 or 1)
     def step(self, state, action, reward, next_state, done, agent_number):
         """Save experience in replay memory, and use random sample from buffer to learn."""
         self.timestep += 1
@@ -108,10 +122,15 @@ class Agent():
         """
         states, actions, rewards, next_states, dones = experiences
 
-        # ---------------------------- update critic ---------------------------- #
+        # 
+        # update critic 
+        #
         # Get predicted next-state actions and Q values from target models
+        #
         actions_next = self.actor_target(next_states)
+        # 
         # Construct next actions vector relative to the agent
+        #
         if agent_number == 0:
             actions_next = torch.cat((actions_next, actions[:,2:]), dim=1)
         else:
@@ -128,10 +147,15 @@ class Agent():
         torch.nn.utils.clip_grad_norm_(self.critic_local.parameters(), 1)
         self.critic_optimizer.step()
 
-        # ---------------------------- update actor ---------------------------- #
+        # 
+        # update actor
+        #
         # Compute actor loss
+        #
         actions_pred = self.actor_local(states)
+        #
         # Construct action prediction vector relative to each agent
+        #
         if agent_number == 0:
             actions_pred = torch.cat((actions_pred, actions[:,2:]), dim=1)
         else:
